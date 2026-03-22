@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PR Career Test</title>
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    color:white;
+    text-align:center;
+    background:black;
+}
+.container{
+    max-width:600px;
+    margin:auto;
+    padding:30px 20px;
+}
+img.main{
+    width:100%;
+    border-radius:15px;
+    margin-bottom:20px;
+}
+button{
+    width:100%;
+    padding:14px;
+    margin:10px 0;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    cursor:pointer;
+    background:white;
+    color:black;
+    font-weight:bold;
+}
+button:hover{ background:#ffd54f; }
+#result{ margin-top:20px; }
+.card{
+    background:white;
+    color:black;
+    padding:24px;
+    border-radius:15px;
+    text-align:left;
+}
+.card h2{
+    text-align:center;
+    font-size:22px;
+    margin-bottom:4px;
+}
+.career-title{
+    text-align:center;
+    font-size:16px;
+    color:#e65100;
+    font-weight:bold;
+    margin-bottom:16px;
+}
+.section{
+    background:#fff8e1;
+    border-radius:12px;
+    padding:14px 16px;
+    margin-top:12px;
+}
+.section h3{
+    margin:0 0 10px 0;
+    font-size:15px;
+    color:#bf360c;
+}
+.row{
+    display:flex;
+    align-items:flex-start;
+    margin:6px 0;
+    font-size:13px;
+    color:#333;
+    gap:8px;
+}
+.highlight{
+    background:#ffe082;
+    border-radius:8px;
+    padding:10px 14px;
+    margin-top:12px;
+    font-size:13px;
+    color:#333;
+    font-weight:bold;
+    text-align:center;
+}
+.salary-box{
+    background:#e8f5e9;
+    border-radius:12px;
+    padding:14px 16px;
+    margin-top:12px;
+}
+.salary-box h3{
+    margin:0 0 10px 0;
+    font-size:15px;
+    color:#1b5e20;
+}
+.salary-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:6px 0;
+    border-bottom:1px solid #c8e6c9;
+    font-size:13px;
+    color:#333;
+}
+.salary-row:last-child{ border-bottom:none; }
+.salary-amount{ font-weight:bold; color:#2e7d32; }
+.freelance-box{
+    background:#e3f2fd;
+    border-radius:12px;
+    padding:14px 16px;
+    margin-top:12px;
+}
+.freelance-box h3{
+    margin:0 0 10px 0;
+    font-size:15px;
+    color:#0d47a1;
+}
+.freelance-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:7px 0;
+    border-bottom:1px solid #bbdefb;
+    font-size:13px;
+    color:#333;
+}
+.freelance-item:last-child{ border-bottom:none; }
+.sectors-box{
+    background:#f3e5f5;
+    border-radius:12px;
+    padding:14px 16px;
+    margin-top:12px;
+}
+.sectors-box h3{
+    margin:0 0 10px 0;
+    font-size:15px;
+    color:#4a148c;
+}
+.sector-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+}
+.sector-item{
+    background:white;
+    border-radius:8px;
+    padding:8px 10px;
+    font-size:12px;
+    color:#333;
+    text-align:center;
+    border:1px solid #e1bee7;
+}
+.sector-img{
+    width:100%;
+    border-radius:10px;
+    margin-top:10px;
+    object-fit:cover;
+    height:140px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🧠 PR Career Test</h1>
+<img class="main" src="https://i.imgur.com/QcV9n2E.jpg" alt="PR Career Test">
+<div id="quiz"></div>
+<div id="result"></div>
+</div>
+
+<script>
+let step=0
+let score={lion:0, city:0, sky:0, bird:0, human:0}
+
+function show(){
+    if(step==0){
+        document.getElementById("quiz").innerHTML=`
+<h2>Чи зурагнаас алийг нь түрүүлж харсан бэ?</h2>
+<button onclick="choose('lion')">🦁 Арслан</button>
+<button onclick="choose('city')">🏙 Хот</button>
+<button onclick="choose('sky')">🌌 Одтой тэнгэр</button>
+<button onclick="choose('bird')">🐦 Шувуу</button>
+<button onclick="choose('human')">🧑 Хүн</button>`
+    }
+    if(step==1){
+        document.getElementById("quiz").innerHTML=`
+<h2>1️⃣ Чи ямар хүн бэ?</h2>
+<button onclick="choose('lion')">Удирдах дуртай</button>
+<button onclick="choose('city')">Логик сэтгэлгээтэй</button>
+<button onclick="choose('sky')">Том мөрөөдөлтэй</button>
+<button onclick="choose('bird')">Шинэ зүйл туршдаг</button>
+<button onclick="choose('human')">Хүмүүстэй ойр</button>`
+    }
+    if(step==2){
+        document.getElementById("quiz").innerHTML=`
+<h2>2️⃣ Чи ямар ажилд дуртай вэ?</h2>
+<button onclick="choose('human')">Хүмүүстэй хамт</button>
+<button onclick="choose('bird')">Чөлөөтэй</button>
+<button onclick="choose('city')">Ганцаараа</button>`
+    }
+    if(step==3){
+        document.getElementById("quiz").innerHTML=`
+<h2>3️⃣ Чи ямар ажил хийх дуртай вэ?</h2>
+<button onclick="choose('lion')">Удирдах</button>
+<button onclick="choose('sky')">Бүтээлч ажил хийх</button>
+<button onclick="choose('human')">Хүмүүстэй харьцах</button>`
+    }
+    if(step==4){ showResult() }
+}
+
+function choose(type){
+    score[type]++
+    step++
+    show()
+}
+
+const prInfo = {
+    lion: {
+        emoji:"🦁", type:"Улс төрийн PR",
+        desc:"Улс төрчид, намуудын нийтийн дүр төрхийг бүрдүүлдэг. Хэвлэлийн бага хурал, мэдэгдэл, хямралыг удирдах ажлуудыг хийдэг.",
+        skills:["🎤 Нийтийн илтгэл","✍️ Мэдэгдэл бичих","🧠 Стратегийн сэтгэлгээ","📺 Медиатай харилцах"],
+        employed:"1,500,000 — 4,000,000₮",
+        freelance:[
+            {icon:"🎙️", job:"Сонгуулийн кампанит ажил", pay:"Төсөл тутам: 500,000–2,000,000₮"},
+            {icon:"📋", job:"Хэвлэлийн бага хурал зохион байгуулах", pay:"Нэг удаа: 200,000–500,000₮"},
+            {icon:"✍️", job:"Мэдэгдэл, яриа бичих", pay:"Нэг бичвэр: 50,000–150,000₮"}
+        ],
+        sectors:["🏛️ Улс төрийн нам","🏢 Засгийн газар","📺 Телевиз","🌐 Олон улсын байгууллага"],
+        img:"https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=600&q=80",
+        future:"Сонгуулийн улирлаар эрэлт маш өндөр. Нэг компанид хязгаарлагдалгүй олон улс төрч, намтай зэрэг ажиллах боломжтой."
+    },
+    city: {
+        emoji:"🏙", type:"Корпорейт PR",
+        desc:"Томоохон компаниудын нэр хүндийг хамгаалдаг. Хөрөнгө оруулагчид, хэвлэл мэдээлэл, олон нийттэй харилцах нь гол ажил.",
+        skills:["📊 Дата шинжилгээ","📰 Хэвлэлийн мэдэгдэл","🤝 Хамтын ажиллагаа","💼 Бизнес ойлголт"],
+        employed:"1,800,000 — 5,000,000₮",
+        freelance:[
+            {icon:"🏢", job:"PR зөвлөх үйлчилгээ", pay:"Сард: 500,000–1,500,000₮"},
+            {icon:"📰", job:"Хэвлэлийн мэдэгдэл бичих", pay:"Нэг бичвэр: 80,000–200,000₮"},
+            {icon:"🎤", job:"Компанийн арга хэмжээ удирдах", pay:"Нэг арга хэмжээ: 300,000–800,000₮"}
+        ],
+        sectors:["⛏️ Уул уурхай","🏦 Банк санхүү","📡 Телеком","🛒 Жижиглэн худалдаа"],
+        img:"https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80",
+        future:"Монголын томоохон корпорациуд PR мэргэжилтэн байнга хайдаг. Нэгэн зэрэг олон компанид зөвлөхөөр ажиллах боломжтой."
+    },
+    sky: {
+        emoji:"🌌", type:"Урлагийн PR",
+        desc:"Дуучид, жүжигчид, спортчид болон урлагийн байгууллагуудын PR-г хариуцдаг. Бүтээлч, динамик орчинд ажилладаг.",
+        skills:["🎨 Бүтээлч сэтгэлгээ","📸 Зураг, видео агуулга","📱 Социал медиа","🎉 Арга хэмжээ зохион байгуулах"],
+        employed:"1,200,000 — 3,500,000₮",
+        freelance:[
+            {icon:"🎤", job:"Дуучин, уран бүтээлчийн агент", pay:"Орлогоос 10–20% комисс"},
+            {icon:"🎬", job:"Урлагийн арга хэмжээ PR", pay:"Нэг төсөл: 300,000–1,000,000₮"},
+            {icon:"🖼️", job:"Үзэсгэлэн, тоглолтын сурталчилгаа", pay:"Нэг арга хэмжээ: 200,000–600,000₮"}
+        ],
+        sectors:["🎵 Хөгжмийн салбар","🎭 Театр, кино","⚽ Спорт","🖼️ Урлагийн галерей"],
+        img:"https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=600&q=80",
+        future:"K-pop, монгол хөгжим, киноны салбар хурдацтай өсч байна. Нэг агентлаг байгуулж олон уран бүтээлчтэй ажиллах боломжтой."
+    },
+    bird: {
+        emoji:"🐦", type:"Дижитал PR",
+        desc:"Онлайн орчинд брэнд бүрдүүлдэг. Influencer маркетинг, контент бүтээх, онлайн хямралыг удирдах зэрэг ажлууд хийдэг.",
+        skills:["📱 Социал медиа стратеги","🎬 Контент бүтээх","📈 SEO, аналитик","🤳 Influencer харилцаа"],
+        employed:"1,500,000 — 4,500,000₮",
+        freelance:[
+            {icon:"📱", job:"Социал медиа менежмент", pay:"Сард нэг хуудас: 200,000–600,000₮"},
+            {icon:"🤳", job:"Influencer кампанит ажил", pay:"Нэг кампани: 300,000–1,000,000₮"},
+            {icon:"✍️", job:"Контент бүтээх, блог", pay:"Нэг контент: 30,000–100,000₮"}
+        ],
+        sectors:["👗 Загварын салбар","🍔 Хоол, ресторан","🏨 Аялал жуулчлал","📦 E-commerce"],
+        img:"https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&q=80",
+        future:"Хамгийн хурдацтай өсч буй PR чиглэл. Гэрээсээ ажиллаж, дэлхийн аль ч компанид үйлчлэх боломжтой."
+    },
+    human: {
+        emoji:"🧑", type:"Нийгмийн PR",
+        desc:"ТББ, олон улсын байгууллага, нийгмийн хөдөлгөөнүүдийн PR-г хариуцдаг. Нийгэмд эерэг өөрчлөлт авчрахад оролцдог утга учиртай ажил.",
+        skills:["❤️ Нийгмийн мэдрэмж","🌍 Хүмүүнлэгийн үзэл","📢 Хамтын зохион байгуулалт","🗣️ Олон нийтийн харилцаа"],
+        employed:"1,000,000 — 2,500,000₮",
+        freelance:[
+            {icon:"🌍", job:"ТББ-ын кампанит ажил", pay:"Нэг төсөл: 200,000–700,000₮"},
+            {icon:"🎗️", job:"Нийгмийн арга хэмжээ зохион байгуулах", pay:"Нэг арга хэмжээ: 150,000–400,000₮"},
+            {icon:"📢", job:"Олон нийтийн мэдээлэл тараах", pay:"Сард: 100,000–300,000₮"}
+        ],
+        sectors:["🏥 Эрүүл мэнд","🎓 Боловсрол","🌱 Байгаль орчин","🤝 ТББ, сайн дурын байгууллага"],
+        img:"https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&q=80",
+        future:"НҮБ, UNICEF, олон улсын байгууллагад ажиллах боломжтой. Нэг байгууллагад хязгаарлагдалгүй олон төсөл авч ажиллах боломжтой."
+    }
+}
+
+function showResult(){
+    let max=Object.keys(score).reduce((a,b)=>score[a]>=score[b]?a:b)
+    let d = prInfo[max]
+
+    document.getElementById("quiz").innerHTML=""
+    document.getElementById("result").innerHTML=`
+<div class="card">
+  <h2>${d.emoji} Чи <strong>${d.type}</strong>-д тохирно!</h2>
+  <p class="career-title">📌 ${d.desc}</p>
+
+  <div class="section">
+    <h3>🛠️ Шаардлагатай чадварууд</h3>
+    ${d.skills.map(s=>`<div class="row"><span>${s}</span></div>`).join('')}
+  </div>
+
+  <div class="salary-box">
+    <h3>💰 Цалин ба орлого</h3>
+    <div class="salary-row">
+      <span>🏢 Компанид ажиллах</span>
+      <span class="salary-amount">${d.employed}/сар</span>
+    </div>
+    <div style="margin-top:10px;font-size:13px;color:#1b5e20;font-weight:bold;">💼 Freelancer / Зөвлөх орлого:</div>
+    ${d.freelance.map(f=>`
+    <div class="salary-row">
+      <span>${f.icon} ${f.job}</span>
+      <span class="salary-amount" style="font-size:11px;text-align:right;max-width:140px">${f.pay}</span>
+    </div>`).join('')}
+  </div>
+
+  <div class="freelance-box">
+    <h3>🚀 1 компанид хязгаарлагдахгүй!</h3>
+    <div class="freelance-item">💡 <span>Freelancer байж <strong>олон клиенттэй</strong> зэрэг ажиллах боломжтой</span></div>
+    <div class="freelance-item">🌐 <span><strong>Өөрийн агентлаг</strong> байгуулж, баг бүрдүүлэх боломжтой</span></div>
+    <div class="freelance-item">✈️ <span><strong>Гэрээсээ</strong> эсвэл дэлхийн аль ч газраас ажиллах боломжтой</span></div>
+    <div class="freelance-item">📈 <span>Туршлага нэмэгдэхийн хэрээр <strong>орлого өснө</strong></span></div>
+  </div>
+
+  <div class="sectors-box">
+    <h3>🌟 Орж болох салбарууд</h3>
+    <div class="sector-grid">
+      ${d.sectors.map(s=>`<div class="sector-item">${s}</div>`).join('')}
+      <div class="sector-item">🎪 Event менежмент</div>
+      <div class="sector-item">👗 Загварын агент</div>
+      <div class="sector-item">🎭 Урлаг соёлын агент</div>
+      <div class="sector-item">🤳 Influencer агент</div>
+    </div>
+    <img class="sector-img" src="${d.img}" alt="${d.type}" onerror="this.style.display='none'">
+  </div>
+
+  <div class="highlight">
+    🚀 ${d.future}
+  </div>
+</div>
+
+<button onclick="restart()" style="margin-top:16px">🔁 Дахин өгөх</button>`
+}
+
+function restart(){
+    step=0
+    score={lion:0, city:0, sky:0, bird:0, human:0}
+    document.getElementById("result").innerHTML=""
+    show()
+}
+
+show()
+</script>
+</body>
+</html>
